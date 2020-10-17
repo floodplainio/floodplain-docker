@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+ext {
+    floodplain_version ="0.8.9-SNAPSHOT"
+}
+
+configurations {
+   drivers 
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    drivers "io.floodplain:immutable-api:${floodplain_version}"
+    drivers "io.floodplain:immutable-impl:${floodplain_version}"
+    drivers "io.floodplain:kafka-converter:${floodplain_version}"
+    drivers "io.floodplain:replication-api:${floodplain_version}"
+    drivers "io.floodplain:replication-impl:${floodplain_version}"
+    drivers "io.floodplain:replication-json:${floodplain_version}"
+    drivers "io.floodplain:replication-protobuf:${floodplain_version}"
+}
+
+task copyDrivers(type: Copy) {
+    from configurations.drivers
+    into "$buildDir/down"
+}
+
